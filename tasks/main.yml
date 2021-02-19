@@ -1,2 +1,38 @@
 ---
 # tasks file for ansible-zeek
+
+- name: Add zeek repository into sources list
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /
+    state: present
+    update_cache: yes
+
+- name: Add zeek repo key
+  apt_key:
+    url: https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key
+    state: present
+
+- name: install dependencies 
+  apt:
+    pkg:
+    - cmake
+    - make
+    - gcc
+    - g++
+    - flex
+    - bison
+    - libpcap-dev
+    - libssl-dev
+    - python-dev
+    - swig
+    - zlib1g-dev
+    - libmaxminddb
+    - sendmail
+    - curl
+    - gperftools
+    - ipsumdump
+
+- name: install zeek
+  apt:
+    name: zeek-lts
+    state: present
