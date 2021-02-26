@@ -26,7 +26,6 @@
     - python-dev
     - swig
     - zlib1g-dev
-    - libmaxminddb
     - sendmail
     - curl
     - gperftools
