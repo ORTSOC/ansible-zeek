@@ -2,17 +2,20 @@
 # tasks file for ansible-zeek
 
 - name: Add zeek repo key
+  become: yes
   apt_key:
     url: https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key
     state: present
 
 - name: Add zeek repository into sources list
+  become: yes
   apt_repository:
     repo: deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /
     state: present
     update_cache: yes
 
 - name: install dependencies 
+  become: yes
   apt:
     pkg:
     - cmake
@@ -37,23 +40,27 @@
     - python3-setuptools
 
 - name: install zeek
+  become: yes
   apt:
     name: zeek-lts
     state: present
 
 # zkg prereqs
 - name: install gitpython | zkg prereqs
+  become: yes
   pip:
     name: gitpython
     executable: pip3
 
 - name: install semantic-version | zkg prereqs
+  become: yes
   pip:
     name: semantic-version
     executable: pip3
 
 # install zkg with pip and install packages
 - name: install zkg
+  become: yes
   pip:
     name: zkg
     executable: pip3
