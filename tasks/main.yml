@@ -30,6 +30,7 @@
     - curl
     - google-perftools
 # install python3 and pip3 for pip package support
+    - python-setuptools
     - python3
     - python3-venv
     - python3-pip
