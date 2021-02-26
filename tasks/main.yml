@@ -44,15 +44,18 @@
 - name: install gitpython | zkg prereqs
   pip:
     name: gitpython
+    executable: pip3
 
 - name: install semantic-version | zkg prereqs
   pip:
     name: semantic-version
+    executable: pip3
 
 # install zkg with pip and install packages
 - name: install zkg
   pip:
     name: zkg
+    executable: pip3
   notify: install zkg packages
 
 # generate node config from vars
