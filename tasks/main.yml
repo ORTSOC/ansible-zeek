@@ -34,3 +34,34 @@
   apt:
     name: zeek-lts
     state: present
+
+
+# generate node config from vars
+- name: load node.cfg
+  become: yes
+  template:
+    src: node.cfg.j2
+    dest: /opt/zeek/etc/node.cfg
+    owner: root
+    group: root
+    mode: "0644"
+
+# generate networks config from vars
+- name: load networks.cfg
+  become: yes
+  template:
+    src: networks.cfg.j2
+    dest: /opt/zeek/etc/networks.cfg
+    owner: root
+    group: root
+    mode: "0644"
+
+# generate zeekctl config from vars
+- name: load zeekctl.cfg
+  become: yes
+  template:
+    src: zeekctl.cfg.j2
+    dest: /opt/zeek/etc/zeekctl.cfg
+    owner: root
+    group: root
+    mode: "0644"
