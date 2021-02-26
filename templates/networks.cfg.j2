@@ -3,5 +3,5 @@
 # For example, "10.0.0.0/8" or "fe80::/64" are valid prefixes.
 
 {% for network in networks %}
-{{ network.cidr }}          {% if network.description %}{{ network.desc }}{% endif %}
+{{ network }}
 {% endfor %}
