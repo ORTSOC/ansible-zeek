@@ -88,9 +88,11 @@
 @load policy/tuning/json-logs
 
 # Extra script loads specified in the playbook variables
+{% if load_script %}
 {% for script in load_script %}
 @load {{ script }}
 {% endfor %}
+{% endif %}
 
 # Load all Packages
 @load packages
