@@ -29,12 +29,31 @@
     - sendmail
     - curl
     - google-perftools
+# install python3 and pip3 for pip package support
+    - python3
+    - python3-venv
+    - python3-pip
+    - python3-setuptools
 
 - name: install zeek
   apt:
     name: zeek-lts
     state: present
 
+# zkg prereqs
+- name: install gitpython | zkg prereqs
+  pip:
+    name: gitpython
+
+- name: install semantic-version | zkg prereqs
+  pip:
+    name: semantic-version
+
+# install zkg with pip and install packages
+- name: install zkg
+  pip:
+    name: zkg
+  notify: install zkg packages
 
 # generate node config from vars
 - name: load node.cfg
@@ -45,8 +64,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: "deploy zeek"
-  
+  notify: deploy zeek
 
 # generate networks config from vars
 - name: load networks.cfg
@@ -57,7 +75,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: "deploy zeek"
+  notify: deploy zeek
 
 # generate zeekctl config from vars
 - name: load zeekctl.cfg
@@ -68,4 +86,15 @@
     owner: root
     group: root
     mode: "0644"
-  notify: "deploy zeek"
+  notify: deploy zeek
+
+# generate local.zeek config from vars
+- name: load local.zeek
+  become: yes
+  template:
+    src: local.zeek.j2
+    dest: /opt/zeek/share/zeek/site/local.zeek
+    owner: root
+    group: root
+    mode: "0644"
+  notify: deploy zeek
