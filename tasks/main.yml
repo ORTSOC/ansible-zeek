@@ -28,8 +28,7 @@
     - zlib1g-dev
     - sendmail
     - curl
-    - gperftools
-    - ipsumdump
+    - google-perftools
 
 - name: install zeek
   apt:
