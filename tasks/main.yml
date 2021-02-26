@@ -45,6 +45,8 @@
     owner: root
     group: root
     mode: "0644"
+  notify: "deploy zeek"
+  
 
 # generate networks config from vars
 - name: load networks.cfg
@@ -55,6 +57,7 @@
     owner: root
     group: root
     mode: "0644"
+  notify: "deploy zeek"
 
 # generate zeekctl config from vars
 - name: load zeekctl.cfg
@@ -65,3 +68,4 @@
     owner: root
     group: root
     mode: "0644"
+  notify: "deploy zeek"
