@@ -32,6 +32,8 @@
     - sendmail
     - curl
     - google-perftools
+# dependency for GitPython which is later installed by git
+    - git
 # install python3 and pip3 for pip package support
     - python-setuptools
     - python3
