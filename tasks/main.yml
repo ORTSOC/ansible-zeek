@@ -145,7 +145,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: deploy zeek
+  notify: zeek | deploy
 
 # generate local.zeek config from vars
 - name: zeek | load local.zeek
