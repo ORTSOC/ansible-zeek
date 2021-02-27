@@ -123,7 +123,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: deploy zeek
+  notify: zeek | deploy
 
 # generate networks config from vars
 - name: zeek | load networks.cfg
@@ -134,7 +134,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: deploy zeek
+  notify: zeek | deploy
 
 # generate zeekctl config from vars
 - name: zeek | load zeekctl.cfg
