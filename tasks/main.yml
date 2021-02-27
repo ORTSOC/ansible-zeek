@@ -1,23 +1,12 @@
 ---
 # tasks file for ansible-zeek
 
-- name: Add zeek repo key
-  become: yes
-  apt_key:
-    url: https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key
-    state: present
-
-- name: Add zeek repository into sources list
-  become: yes
-  apt_repository:
-    repo: deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /
-    state: present
-    update_cache: yes
-
-- name: install dependencies 
+# install zkg & zeek dependencies
+- name: apt | required pre-install packages
   become: yes
   apt:
     pkg:
+# zeek build dependencies
     - cmake
     - make
     - gcc
@@ -29,9 +18,12 @@
     - python-dev
     - swig
     - zlib1g-dev
+# optional zeek dependencies
     - sendmail
     - curl
     - google-perftools
+# dependency for adding keys with apt-key
+    - gpg
 # dependency for GitPython which is later installed by git
     - git
 # install python3 and pip3 for pip package support
@@ -41,35 +33,89 @@
     - python3-pip
     - python3-setuptools
 
-- name: install zeek
+- name: apt | Add zeek repo key
+  become: yes
+  apt_key:
+    url: https://download.opensuse.org/repositories/security:zeek/Debian_10/Release.key
+    state: present
+
+- name: apt | Add zeek repository into sources list
+  become: yes
+  apt_repository:
+    repo: deb http://download.opensuse.org/repositories/security:/zeek/Debian_10/ /
+    state: present
+    update_cache: yes
+
+- name: apt | install zeek
   become: yes
   apt:
     name: zeek-lts
     state: present
 
 # zkg prereqs
-- name: install gitpython | zkg prereqs
+- name: pip3 | install gitpython (zkg prereq)
   become: yes
   pip:
     name: gitpython
     executable: pip3
 
-- name: install semantic-version | zkg prereqs
+- name: pip3 | install semantic-version (zkg prereq)
   become: yes
   pip:
     name: semantic-version
     executable: pip3
 
 # install zkg with pip and install packages
-- name: install zkg
+- name: pip3 | install zkg
   become: yes
   pip:
     name: zkg
     executable: pip3
-  notify: install zkg packages
+
+- name: zkg | autoconfig
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg autoconfig
+  args:
+    creates: /root/.zkg/config
+
+- name: zkg | install zeek-community-id
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg install --force zeek-community-id --version=zeek/3.0
+  args:
+    creates: /opt/zeek/share/zeek/site/zeek-community-id
+  async: 120
+  poll: 5
+
+- name: zkg | install ja3
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg install --force ja3
+  args:
+    creates: /opt/zeek/share/zeek/site/ja3
+  async: 120
+  poll: 5
+
+- name: zkg | install hassh
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg install --force hassh
+  args:
+    creates: /opt/zeek/share/zeek/site/hassh
+  async: 120
+  poll: 5
 
 # generate node config from vars
-- name: load node.cfg
+- name: zeek | load node.cfg
   become: yes
   template:
     src: node.cfg.j2
@@ -80,7 +126,7 @@
   notify: deploy zeek
 
 # generate networks config from vars
-- name: load networks.cfg
+- name: zeek | load networks.cfg
   become: yes
   template:
     src: networks.cfg.j2
@@ -91,7 +137,7 @@
   notify: deploy zeek
 
 # generate zeekctl config from vars
-- name: load zeekctl.cfg
+- name: zeek | load zeekctl.cfg
   become: yes
   template:
     src: zeekctl.cfg.j2
@@ -102,7 +148,7 @@
   notify: deploy zeek
 
 # generate local.zeek config from vars
-- name: load local.zeek
+- name: zeek | load local.zeek
   become: yes
   template:
     src: local.zeek.j2
@@ -110,4 +156,4 @@
     owner: root
     group: root
     mode: "0644"
-  notify: deploy zeek
+  notify: zeek | deploy
