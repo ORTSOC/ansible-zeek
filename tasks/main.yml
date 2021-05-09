@@ -49,7 +49,7 @@
 - name: apt | install zeek
   become: yes
   apt:
-    name: zeek-lts
+    name: zeek-lts=4.0.1-0
     state: present
 
 # zkg prereqs
