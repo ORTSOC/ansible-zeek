@@ -88,7 +88,7 @@
 @load policy/tuning/json-logs
 
 # Extra script loads specified in the playbook variables
-{% if load_script %}
+{% if load_script is defined %}
 {% for script in load_script %}
 @load {{ script }}
 {% endfor %}
