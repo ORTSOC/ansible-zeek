@@ -114,6 +114,28 @@
   async: 120
   poll: 5
 
+- name: zkg | install zeek-bogon
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg install --force zeek-bogon
+  args:
+    creates: /opt/zeek/share/zeek/site/zeek-bogon
+  async: 120
+  poll: 5
+
+- name: zkg | install zeek-intel-path
+  become: yes
+  environment:
+    PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
+  shell:
+    cmd: zkg install --force zeek-intel-path
+  args:
+    creates: /opt/zeek/share/zeek/site/zeek-intel-path
+  async: 120
+  poll: 5
+
 # generate node config from vars
 - name: zeek | load node.cfg
   become: yes
