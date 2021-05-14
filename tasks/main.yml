@@ -86,7 +86,7 @@
   environment:
     PATH: '/opt/zeek/bin:{{ ansible_env.PATH }}'
   shell:
-    cmd: zkg install --force zeek-community-id --version=zeek/3.0
+    cmd: zkg install --force zeek-community-id --version=zeek/4.0
   args:
     creates: /opt/zeek/share/zeek/site/zeek-community-id
   async: 120
