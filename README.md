@@ -1,7 +1,7 @@
 ansible-zeek
 =========
 
-Deploys Zeek to specified machine.
+Deploys Zeek, an open source network security monitoring tool.
 
 Requirements
 ------------
