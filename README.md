@@ -13,10 +13,10 @@ Requirements
 Role Variables
 --------------
 
-- alert_email: email address to send alerts to.
-- interface: The network interface to read to traffic over. Can be found with `ip dev`. ex. eth0, wlan0, etc. 
-- networks: a list of subnets in CIDR format to listen to traffic over using the specified interface.
-load_script: a list of scripts to load, using paths. See below example.
+- `alert_email`: email address to send alerts to.
+- `interface`: The network interface to read to traffic over. Can be found with `ip dev`. ex. eth0, wlan0, etc. 
+- `networks`: a list of subnets in CIDR format to listen to traffic over using the specified interface.
+- `load_script`: a list of scripts to load, using paths. See below example.
 
 Example Playbook
 ----------------
