@@ -89,7 +89,7 @@
     cmd: zkg install --force zeek-community-id
   args:
     creates: /opt/zeek/share/zeek/site/zeek-community-id
-  async: 120
+  async: 600
   poll: 5
 
 - name: zkg | install ja3
@@ -100,7 +100,7 @@
     cmd: zkg install --force ja3
   args:
     creates: /opt/zeek/share/zeek/site/ja3
-  async: 120
+  async: 600
   poll: 5
 
 - name: zkg | install hassh
@@ -111,7 +111,7 @@
     cmd: zkg install --force hassh
   args:
     creates: /opt/zeek/share/zeek/site/hassh
-  async: 120
+  async: 600
   poll: 5
 
 - name: zkg | install zeek-bogon
@@ -122,7 +122,7 @@
     cmd: zkg install --force zeek-bogon
   args:
     creates: /opt/zeek/share/zeek/site/zeek-bogon
-  async: 120
+  async: 600
   poll: 5
 
 - name: zkg | install zeek-intel-path
@@ -133,7 +133,7 @@
     cmd: zkg install --force zeek-intel-path
   args:
     creates: /opt/zeek/share/zeek/site/zeek-intel-path
-  async: 120
+  async: 600
   poll: 5
 
 # generate node config from vars
